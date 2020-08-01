@@ -1,7 +1,7 @@
 header.header
   .header__wrapper
     .header__column
-      a(href="/")
+      a(href=routes.home)
         i.fab.fa-youtube
     .header__column
       from(action="/search" method="get").header__search
@@ -9,12 +9,12 @@ header.header
     .header__column
       ul.header__btns
         li.header__btn
-          a(href="/join") Join
+          a(href=routes.join) Join
         li.header__btn
-          a(href="/login") Login
+          a(href=routes.login) Login
         li.header__btn
-          a(href="/videos/upload") Upload
+          a(href=`/videos${routes.upload}`) Upload
         li.header__btn
-          a(href="/users/:id") Profile
+          a(href=routes.userDetail) Profile
         li.header__btn
-          a(href="/logout") Logout
+          a(href=routes.logout) Logout
