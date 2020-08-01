@@ -14,6 +14,8 @@ const app = express();
 // helmet은 application을 보다 더 안전하게 만들어준다.
 app.use(helmet());
 
+app.set("view engine", "pug");
+
 // app을 이용해서 middleware를 추가해준다.
 // cookieParser는 사용자 인증에 필요한 cookie를 전달 받는다.
 app.use(cookieParser());

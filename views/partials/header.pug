@@ -1,0 +1,20 @@
+header.header
+  .header__wrapper
+    .header__column
+      a(href="/")
+        i.fab.fa-youtube
+    .header__column
+      from(action="/search" method="get").header__search
+        input(type="text", placeholder="Searching by term...", name="term")
+    .header__column
+      ul.header__btns
+        li.header__btn
+          a(href="/join") Join
+        li.header__btn
+          a(href="/login") Login
+        li.header__btn
+          a(href="/videos/upload") Upload
+        li.header__btn
+          a(href="/users/:id") Profile
+        li.header__btn
+          a(href="/logout") Logout
