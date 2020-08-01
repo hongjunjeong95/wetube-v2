@@ -5,6 +5,10 @@ import helmet from "helmet";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 
+import routes from "./routes";
+import userRouter from "./routers/userRouter";
+import videoRouter from "./routers/videoRouter";
+import globalRouter from "./routers/globalRouter";
 const app = express();
 
 // helmet은 application을 보다 더 안전하게 만들어준다.
@@ -22,6 +26,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // logging middleware
 app.use(morgan("dev"));
 
-app.get("/", (req, res) => res.send("Hello World!"));
+// app.use(routes.home, (req, res) => res.send("Hi home"));
+app.use(routes.home, globalRouter);
+app.use(routes.users, userRouter);
+app.use(routes.videos, videoRouter);
 
 export default app;
