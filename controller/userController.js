@@ -1,4 +1,5 @@
-import User from '../models/user';
+import passport from 'passport';
+import User from '../models/User';
 import routes from '../routes';
 
 export const getJoin = (req, res) => {
@@ -31,13 +32,13 @@ export const postJoin = async (req, res, next) => {
 };
 
 export const getLogin = (req, res) => {
-  res.render('login');
+  res.render('login', { pageTitle: 'login' });
 };
 
-export const postLogin = (req, res) => {
-  console.log('u r login');
-  res.render('login');
-};
+export const postLogin = passport.authenticate('local', {
+  failureRedirect: routes.login,
+  successRedirect: routes.home,
+});
 
 export const logout = (req, res) => {
   res.render('logout');
