@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const videoSchema = new mongoose.Schema({
   title: String,
@@ -14,14 +14,14 @@ const videoSchema = new mongoose.Schema({
   },
   creator: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
   },
   comments: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Comment",
+    ref: 'Comment',
   },
 });
 
-const model = mongoose.model("Video", videoSchema);
+const model = mongoose.model('Video', videoSchema);
 
 export default model;

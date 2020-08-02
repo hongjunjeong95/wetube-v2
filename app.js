@@ -32,7 +32,6 @@ app.use(morgan("dev"));
 
 app.use(localMiddleware);
 
-// app.use(routes.home, (req, res) => res.send("Hi home"));
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.videos, videoRouter);
