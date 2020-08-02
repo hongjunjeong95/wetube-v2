@@ -24,13 +24,14 @@ export const postJoin = async (req, res, next) => {
         avatarUrl: file ? file.path : null,
       });
       await User.register(user, password1);
-      console.log('✅ Registering ID success');
+      console.log('Register');
       next();
     } catch (error) {
       console.log(error);
       res.redirect(routes.home);
     }
   }
+  console.log('Join finished');
 };
 
 // Login
@@ -45,7 +46,8 @@ export const postLogin = passport.authenticate('local', {
 
 // logout
 export const logout = (req, res) => {
-  res.render('logout');
+  req.logout();
+  res.redirect(routes.home);
 };
 
 // getMe

@@ -2,11 +2,11 @@ import express from 'express';
 import routes from '../routes';
 import { home, search } from '../controller/videoController';
 import {
-  postLogin,
-  logout,
   getJoin,
   postJoin,
   getLogin,
+  postLogin,
+  logout,
   getMe,
 } from '../controller/userController';
 import { uploadAvatar, onlyPublic, onlyPrivate } from '../middleware';
@@ -15,7 +15,7 @@ const globalRouter = express.Router();
 
 globalRouter.get(routes.home, home);
 globalRouter.get(routes.search, search);
-globalRouter.get(routes.me, onlyPublic, getMe);
+globalRouter.get(routes.me, onlyPrivate, getMe);
 
 // Join
 globalRouter.get(routes.join, onlyPublic, getJoin);

@@ -20,11 +20,17 @@ import './passport';
 
 const app = express();
 const CookieStore = MongoStore(session);
+const check = (req, res, next) => {
+  console.log('check:', req.user);
+  next();
+};
 
 // helmet은 application을 보다 더 안전하게 만들어준다.
 app.use(helmet());
 
 app.set('view engine', 'pug');
+
+app.use('/uploads', express.static('uploads'));
 
 // app을 이용해서 middleware를 추가해준다.
 // cookieParser는 사용자 인증에 필요한 cookie를 전달 받는다.
@@ -38,8 +44,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // logging middleware
 app.use(morgan('dev'));
 
-app.use('/uploads', express.static('uploads'));
-
 app.use(
   session({
     secret: process.env.COOKIE_SECRET, // 무작위 문자열로서 쿠키에 들어있는 sessionID를 암호화 하기 위한 것이다.
@@ -52,6 +56,8 @@ app.use(
 // express-session을 설치해주자.
 app.use(passport.initialize()); // passport 구동
 app.use(passport.session()); // connect session
+
+app.use(check);
 
 app.use(localMiddleware);
 
