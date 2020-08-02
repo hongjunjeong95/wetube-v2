@@ -38,6 +38,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // logging middleware
 app.use(morgan('dev'));
 
+app.use('/uploads', express.static('uploads'));
+
 app.use(
   session({
     secret: process.env.COOKIE_SECRET, // 무작위 문자열로서 쿠키에 들어있는 sessionID를 암호화 하기 위한 것이다.

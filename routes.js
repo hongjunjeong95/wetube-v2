@@ -1,22 +1,23 @@
 // home
-const HOME = "/";
-const SEARCH = "/search";
-const JOIN = "/join";
-const LOGIN = "/login";
-const LOGOUT = "/logout";
+const HOME = '/';
+const SEARCH = '/search';
+const JOIN = '/join';
+const LOGIN = '/login';
+const LOGOUT = '/logout';
+const ME = '/me';
 
 // users
-const USERS = "/users";
-const EDIT_PROFILE = "/edit-profile";
-const CHANGE_PASSWORD = "/change-password";
-const USER_DETAIL = "/:id";
+const USERS = '/users';
+const EDIT_PROFILE = '/edit-profile';
+const CHANGE_PASSWORD = '/change-password';
+const USER_DETAIL = '/:id';
 
 // videos
-const VIDEOS = "/videos";
-const VIDEO_DETAIL = "/id";
-const UPLOAD = "/upload";
-const EDIT_VIDEO = "/:id/edit-video";
-const DELETE_VIDEO = "/:id/delete-video";
+const VIDEOS = '/videos';
+const VIDEO_DETAIL = '/id';
+const UPLOAD = '/upload';
+const EDIT_VIDEO = '/:id/edit-video';
+const DELETE_VIDEO = '/:id/delete-video';
 
 const router = {
   home: HOME,
@@ -24,6 +25,7 @@ const router = {
   join: JOIN,
   login: LOGIN,
   logout: LOGOUT,
+  me: ME,
 
   users: USERS,
   userDetail: USER_DETAIL,

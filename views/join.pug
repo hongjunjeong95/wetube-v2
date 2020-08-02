@@ -1,10 +1,10 @@
 extends layouts/main
 
 block content
-  form(action=routes.join method="post").join-form
+  form(action=routes.join method="post" enctype="multipart/form-data").join-form
     .join__avatar
       label(for="avatar") Avatar
-      input(type="file" name="avatarUrl" id="avatar")
+      input(type="file" name="avatar" id="avatar" accept="image/*")
     input(type="text" placeholder="Full name" required=true name="name")
     input(type="email" placeholder="email" required=true name="email")
     input(type="password" placeholder="Password" required=true name="password1")

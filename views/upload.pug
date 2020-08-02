@@ -1,9 +1,9 @@
 extends layouts/main
 
 block content
-  form(action=routes.upload, method="post").upload
+  form(action=routes.upload, method="post" enctype="multipart/form-data").upload
 
     input(type="text", placeholder="Title" name="title")
-    textarea(placeholder="D escription" name="descripton")
+    textarea(placeholder="Description" name="descripton")
     input(type="submit")
     

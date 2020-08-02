@@ -7,16 +7,19 @@ import {
   getJoin,
   postJoin,
   getLogin,
+  getMe,
 } from '../controller/userController';
+import { uploadAvatar } from '../middleware';
 
 const globalRouter = express.Router();
 
 globalRouter.get(routes.home, home);
 globalRouter.get(routes.search, search);
+globalRouter.get(routes.me, getMe);
 
 // Join
 globalRouter.get(routes.join, getJoin);
-globalRouter.post(routes.join, postJoin, postLogin);
+globalRouter.post(routes.join, uploadAvatar, postJoin, postLogin);
 
 // Login
 globalRouter.get(routes.login, getLogin);
