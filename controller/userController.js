@@ -75,6 +75,39 @@ export const githubStrategy = async (_, __, profile, cb) => {
   }
 };
 
+// Google Login
+export const googleLogin = passport.authenticate('google', {
+  scope: ['email'],
+});
+
+export const googleLoginCallback = (req, res) => {
+  res.redirect(routes.home);
+};
+
+export const googleStrategy = async (_, __, profile, cb) => {
+  console.log('Google profile:', profile);
+  const {
+    _json: { name, email, avatar_url: avatarUrl, id },
+  } = profile;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      user.googleId = id;
+      user.save();
+      return cb(null, user);
+    }
+    const newUser = await User.create({
+      email,
+      name,
+      googleId: id,
+      avatarUrl,
+    });
+    return cb(null, newUser);
+  } catch (error) {
+    return cb(error);
+  }
+};
+
 // logout
 export const logout = (req, res) => {
   req.logout();

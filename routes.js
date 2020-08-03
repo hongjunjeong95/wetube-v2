@@ -16,6 +16,10 @@ const USER_DETAIL = '/:id';
 const GITHUB = '/auth/github';
 const GITHUB_CALLBACK = '/auth/github/callback';
 
+// Google
+const GOOGLE = '/auth/google';
+const GOOGLE_CALLBACK = '/auth/google/callback';
+
 // videos
 const VIDEOS = '/videos';
 const VIDEO_DETAIL = '/:id';
@@ -34,6 +38,10 @@ const router = {
   // Github Login
   github: GITHUB,
   githubCallback: GITHUB_CALLBACK,
+
+  // Google Login
+  google: GOOGLE,
+  googleCallback: GOOGLE_CALLBACK,
 
   users: USERS,
   userDetail: (id) => {

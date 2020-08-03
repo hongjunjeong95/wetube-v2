@@ -11,6 +11,8 @@ import {
   getMe,
   githubLogin,
   githubLoginCallback,
+  googleLoginCallback,
+  googleLogin,
 } from '../controller/userController';
 import { uploadAvatar, onlyPublic, onlyPrivate } from '../middleware';
 
@@ -34,6 +36,14 @@ globalRouter.get(
   routes.githubCallback,
   passport.authenticate('github', { failureRedirect: routes.login }),
   githubLoginCallback
+);
+
+// Google login
+globalRouter.get(routes.google, googleLogin);
+globalRouter.get(
+  routes.googleCallback,
+  passport.authenticate('google', { failureRedirect: routes.login }),
+  googleLoginCallback
 );
 
 // Log out
