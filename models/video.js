@@ -4,10 +4,7 @@ const videoSchema = new mongoose.Schema({
   title: String,
   description: String,
   videoUrl: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  createdAt: String,
   views: {
     type: Number,
     default: 0,

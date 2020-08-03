@@ -1,6 +1,17 @@
 import routes from '../routes';
 import Video from '../models/Video';
 
+const getDate = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+  month = month < 10 ? `0${month}` : month;
+  day = day < 10 ? `0${day}` : day;
+
+  return `${year}-${month}-${day}`;
+};
+
 export const home = async (req, res) => {
   try {
     const videos = await Video.find({}).populate('creator').sort({ _id: -1 });
@@ -30,11 +41,13 @@ export const postUpload = async (req, res) => {
     user: { id },
   } = req;
   try {
+    console.log(getDate());
     const newVideo = await Video.create({
       title,
       description,
       videoUrl: path,
       creator: id,
+      createdAt: getDate(),
     });
     req.user.videos.push(newVideo.id);
     req.user.save();
