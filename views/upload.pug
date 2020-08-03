@@ -1,9 +1,10 @@
 extends layouts/main
 
 block content
-  form(action=routes.upload, method="post" enctype="multipart/form-data").upload
-
+  form(action=`/videos${routes.upload}`, method="post" enctype="multipart/form-data").upload-video
+    label(for="videoFile") Video file
+    input(type="file" id="videoFile" name="videoFile" accept="video/*")
     input(type="text", placeholder="Title" name="title")
-    textarea(placeholder="Description" name="descripton")
-    input(type="submit")
+    textarea(placeholder="Description" name="description")
+    input(type="submit", value="Upload Video")
     

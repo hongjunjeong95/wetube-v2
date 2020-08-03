@@ -54,7 +54,12 @@ const router = {
   changePassword: CHANGE_PASSWORD,
 
   videos: VIDEOS,
-  videoDetail: VIDEO_DETAIL,
+  videoDetail: (id) => {
+    if (id) {
+      return `/videos/${id}`;
+    }
+    return VIDEO_DETAIL;
+  },
   upload: UPLOAD,
   editVideo: EDIT_VIDEO,
   deleteVideo: DELETE_VIDEO,

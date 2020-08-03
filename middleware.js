@@ -5,7 +5,7 @@ const multerAvatar = multer({ dest: 'uploads/avatars' });
 const multerVideo = multer({ dest: 'uploads/videos' });
 
 export const uploadAvatar = multerAvatar.single('avatar');
-export const uploadVideo = multerVideo.single('video');
+export const uploadVideo = multerVideo.single('videoFile');
 
 export const localMiddleware = (req, res, next) => {
   res.locals.siteName = 'WeTube';

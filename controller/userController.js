@@ -52,7 +52,6 @@ export const githubLoginCallback = (req, res) => {
 };
 
 export const githubStrategy = async (_, __, profile, cb) => {
-  console.log('Github profile:', profile);
   const {
     _json: { name, email, avatar_url: avatarUrl, id },
   } = profile;
@@ -85,7 +84,6 @@ export const googleLoginCallback = (req, res) => {
 };
 
 export const googleStrategy = async (_, __, profile, cb) => {
-  console.log('Google profile:', profile);
   const {
     _json: { name, email, avatar_url: avatarUrl, id },
   } = profile;

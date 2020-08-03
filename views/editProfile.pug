@@ -5,7 +5,7 @@ block content
     .Edit__avatar
       label(for="avatar") Avatar
         img(src=`../${user.avatarUrl}`).profile__avatar
-      input(type="file" name="avatar" id="avatar")
+      input(type="file" name="avatar" id="avatar" accept="image/*")
     input(type="text" placeholder="Full name" required=true name="name" value=user.name)
     input(type="email" placeholder="email" required=true name="email" value=user.email)  
     input(type="submit" value="Edit now")
