@@ -12,6 +12,10 @@ const EDIT_PROFILE = '/edit-profile';
 const CHANGE_PASSWORD = '/change-password';
 const USER_DETAIL = '/:id';
 
+// Github
+const GITHUB = '/auth/github';
+const GITHUB_CALLBACK = '/auth/github/callback';
+
 // videos
 const VIDEOS = '/videos';
 const VIDEO_DETAIL = '/:id';
@@ -26,6 +30,10 @@ const router = {
   login: LOGIN,
   logout: LOGOUT,
   me: ME,
+
+  // Github Login
+  github: GITHUB,
+  githubCallback: GITHUB_CALLBACK,
 
   users: USERS,
   userDetail: (id) => {

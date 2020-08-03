@@ -3,7 +3,6 @@ import express from 'express';
 import routes from '../routes';
 import {
   userDetail,
-  changePassword,
   getEditProfile,
   postEditProfile,
   getChangePassword,
