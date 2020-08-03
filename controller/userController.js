@@ -57,7 +57,6 @@ export const getMe = async (req, res) => {
   } = req;
   try {
     const user = await User.findById(id);
-    console.log('user:', user);
     res.render('userDetail', { pageTitle: 'Me', user });
   } catch (error) {
     console.log(error);
@@ -69,8 +68,38 @@ export const userDetail = (req, res) => {
   res.render('userDetail', { pageTitle: 'userDetail' });
 };
 
-export const editProfile = (req, res) => {
-  res.render('editProfile', { pageTitle: 'editProfile' });
+export const getEditProfile = async (req, res) => {
+  const {
+    user: { id },
+  } = req;
+  try {
+    const user = await User.findById(id);
+    console.log('getEdit user: ', user);
+    res.render('editProfile', { pageTitle: 'editProfile', user });
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
+};
+
+export const postEditProfile = async (req, res) => {
+  const {
+    body: { name, email },
+    user: { id },
+    file,
+  } = req;
+  try {
+    await User.findByIdAndUpdate(id, {
+      name,
+      email,
+      avatarUrl: file ? file.path : req.user.avatarUrl,
+    });
+    res.redirect(routes.me);
+    console.log('Edit success');
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.editProfile);
+  }
 };
 
 export const changePassword = (req, res) => {

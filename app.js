@@ -57,7 +57,7 @@ app.use(
 app.use(passport.initialize()); // passport 구동
 app.use(passport.session()); // connect session
 
-app.use(check);
+// app.use(check);
 
 app.use(localMiddleware);
 

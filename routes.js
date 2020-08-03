@@ -14,7 +14,7 @@ const USER_DETAIL = '/:id';
 
 // videos
 const VIDEOS = '/videos';
-const VIDEO_DETAIL = '/id';
+const VIDEO_DETAIL = '/:id';
 const UPLOAD = '/upload';
 const EDIT_VIDEO = '/:id/edit-video';
 const DELETE_VIDEO = '/:id/delete-video';
@@ -28,7 +28,12 @@ const router = {
   me: ME,
 
   users: USERS,
-  userDetail: USER_DETAIL,
+  userDetail: (id) => {
+    if (id) {
+      return `/users/${id}`;
+    }
+    return USER_DETAIL;
+  },
   editProfile: EDIT_PROFILE,
   changePassword: CHANGE_PASSWORD,
 
