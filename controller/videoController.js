@@ -22,8 +22,21 @@ export const home = async (req, res) => {
   }
 };
 
-export const search = (req, res) => {
-  res.render('search');
+export const search = async (req, res) => {
+  const {
+    query: { term: searchingBy },
+  } = req;
+  let videos = [];
+
+  try {
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: 'i' },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+  res.render('search', { pageTitle: 'search', searchingBy, videos });
 };
 
 export const videoDetail = (req, res) => {
@@ -41,7 +54,6 @@ export const postUpload = async (req, res) => {
     user: { id },
   } = req;
   try {
-    console.log(getDate());
     const newVideo = await Video.create({
       title,
       description,

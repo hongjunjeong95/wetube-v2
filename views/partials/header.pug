@@ -4,7 +4,7 @@ header.header
       a(href=routes.home)
         i.fab.fa-youtube
     .header__column
-      from(action="/search" method="get").header__search
+      form(action=routes.search method="get").header__search
         input(type="text", placeholder="Searching by term...", name="term")
     .header__column
       ul.header__btns
