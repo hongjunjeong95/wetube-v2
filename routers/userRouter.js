@@ -12,7 +12,7 @@ import { onlyPrivate, uploadAvatar } from '../middleware';
 
 const userRouter = express.Router();
 
-userRouter.get(routes.userDetail, onlyPrivate, userDetail);
+userRouter.get(routes.userDetail(), onlyPrivate, userDetail);
 
 // Edit Profile
 userRouter.get(routes.editProfile, onlyPrivate, getEditProfile);

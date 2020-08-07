@@ -55,13 +55,14 @@ const router = {
 
   videos: VIDEOS,
   videoDetail: (id) => {
-    if (id) {
-      return `/videos/${id}`;
-    }
+    if (id) return `/videos/${id}`;
     return VIDEO_DETAIL;
   },
   upload: UPLOAD,
-  editVideo: EDIT_VIDEO,
+  editVideo: (id) => {
+    if (id) return `/videos/${id}/edit-video`;
+    return EDIT_VIDEO;
+  },
   deleteVideo: DELETE_VIDEO,
 };
 

@@ -39,10 +39,20 @@ export const search = async (req, res) => {
   res.render('search', { pageTitle: 'search', searchingBy, videos });
 };
 
-export const videoDetail = (req, res) => {
-  res.render('videoDetail');
+export const videoDetail = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const video = await Video.findById(id).populate('creator');
+    res.render('videoDetail', { pageTitle: video.title, video });
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+  }
 };
 
+// Upload video
 export const getUpload = (req, res) => {
   res.render('upload', { pageTitle: 'upload' });
 };
@@ -63,7 +73,7 @@ export const postUpload = async (req, res) => {
     });
     req.user.videos.push(newVideo.id);
     req.user.save();
-    res.redirect(routes.home);
+    res.redirect(routes.videoDetail(newVideo.id));
   } catch (error) {
     console.log(error);
     res.redirect(routes.upload);

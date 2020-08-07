@@ -1,8 +1,7 @@
 mixin videoBlock(video={})
   .videoBlock
     a(href=routes.videoDetail(video.id))
-      video.videoBlock__thumnail(src=video.videoUrl controls=false)
+      video.videoBlock__thumnail(src=`/${video.videoUrl}` controls=false)
       h4.videoBlock__title #{video.title}
       h5.videoBlock__creator #{video.creator.name}
       h5.videoBlock__createdAt #{video.createdAt}
-      //- h5.videoBlock__createdAt #{createdAt(video.createdAt)}-#{video.createdAt.getMonth()+1}-#{video.createdAt.getDate()}

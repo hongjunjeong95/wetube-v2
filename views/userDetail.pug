@@ -4,7 +4,7 @@ include mixins/videoBlock
 block content
   .profile
     .profile__column
-      img(src=`${user.avatarUrl}`).profile__avatar
+      img(src=`/${user.avatarUrl}`).profile__avatar
     .profile__column
       .profile__name #{user.name}
       .profile__email #{user.email}
@@ -14,6 +14,12 @@ block content
           button ✏️ Edit Profile
         a(href=`/users${routes.changePassword}`).changePassword
           button 🔒 Change Password
-  +videoBlock({
-
-  })
+  .uploaded-videos
+      each item in user.videos
+        +videoBlock({
+          id:item.id,
+          title:item.title,
+          views:item.views,
+          videoUrl:item.videoUrl,
+          creator: item.creator
+        })
