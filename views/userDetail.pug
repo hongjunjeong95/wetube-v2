@@ -4,16 +4,20 @@ include mixins/videoBlock
 block content
   .profile
     .profile__column
-      img(src=`/${user.avatarUrl}`).profile__avatar
+      if user.avatarUrl.startsWith('http')
+        img(src=user.avatarUrl).profile__avatar
+      else
+        img(src=`/${user.avatarUrl}`).profile__avatar
     .profile__column
       .profile__name #{user.name}
       .profile__email #{user.email}
     .profile__column
       .profile__btns
-        a(href=`/users${routes.editProfile}`).profile__edit
-          button ✏️ Edit Profile
-        a(href=`/users${routes.changePassword}`).changePassword
-          button 🔒 Change Password
+        if loggedUser && loggedUser.id === user.id
+          a(href=`/users${routes.editProfile}`).profile__edit
+            button ✏️ Edit Profile
+          a(href=`/users${routes.changePassword}`).changePassword
+            button 🔒 Change Password
   .uploaded-videos
       each item in user.videos
         +videoBlock({

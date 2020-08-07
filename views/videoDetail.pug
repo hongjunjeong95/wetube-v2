@@ -20,8 +20,8 @@ block content
     .video__creator
       a(href=routes.userDetail(video.creator.id))
         if video.creator.avatarUrl.startsWith('http')
-          img.creatorAvatar(src=video.creator.avatarUrl)
+          img(src=video.creator.avatarUrl).creatorAvatar
         else
-          img.creatorAvatar(src=`/${video.creator.avatarUrl}`)
+          img(src=`/${video.creator.avatarUrl}`).creatorAvatar
         span.creatorName #{video.creator.name}
-    p.video__description=video.descriptions
+    p.video__description #{video.description}

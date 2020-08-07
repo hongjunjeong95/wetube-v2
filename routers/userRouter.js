@@ -12,8 +12,6 @@ import { onlyPrivate, uploadAvatar } from '../middleware';
 
 const userRouter = express.Router();
 
-userRouter.get(routes.userDetail(), onlyPrivate, userDetail);
-
 // Edit Profile
 userRouter.get(routes.editProfile, onlyPrivate, getEditProfile);
 userRouter.post(routes.editProfile, onlyPrivate, uploadAvatar, postEditProfile);
@@ -21,5 +19,6 @@ userRouter.post(routes.editProfile, onlyPrivate, uploadAvatar, postEditProfile);
 // Change Password
 userRouter.get(routes.changePassword, onlyPrivate, getChangePassword);
 userRouter.post(routes.changePassword, onlyPrivate, postChangePassword);
+userRouter.get(routes.userDetail(), userDetail);
 
 export default userRouter;

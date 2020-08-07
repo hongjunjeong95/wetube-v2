@@ -128,11 +128,10 @@ export const getMe = async (req, res) => {
 
 export const userDetail = async (req, res) => {
   const {
-    user: { id },
+    params: { id },
   } = req;
   try {
     const user = await User.findById(id).populate('videos');
-
     res.render('userDetail', { pageTitle: 'userDetail', user });
   } catch (error) {
     console.log(error);
