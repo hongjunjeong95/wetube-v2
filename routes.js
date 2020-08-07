@@ -63,7 +63,10 @@ const router = {
     if (id) return `/videos/${id}/edit-video`;
     return EDIT_VIDEO;
   },
-  deleteVideo: DELETE_VIDEO,
+  deleteVideo: (id) => {
+    if (id) return `/videos/${id}/delete-video`;
+    return DELETE_VIDEO;
+  },
 };
 
 export default router;
