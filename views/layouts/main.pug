@@ -3,9 +3,11 @@ html(lang="en")
   head
     link(rel="stylesheet",
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css")
+    link(rel="stylesheet", href="/static/styles.css")
     title #{siteName} | #{pageTitle}
   body
     include ../partials/header
     main
       block content
     include ../partials/footer
+    script(src="/static/main.js")
