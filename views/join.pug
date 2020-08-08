@@ -3,7 +3,7 @@ extends layouts/main
 block content
   .form-container
     form(action=routes.join method="post" enctype="multipart/form-data").join-form
-      .join__avatar
+      .fileUpload
         label(for="avatar") Avatar
         input(type="file" name="avatar" id="avatar" accept="image/*")
       input(type="text" placeholder="Full name" required=true name="name")
