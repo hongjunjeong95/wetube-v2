@@ -117,8 +117,15 @@ export const getMe = async (req, res) => {
   const {
     user: { id },
   } = req;
+
   try {
-    const user = await User.findById(id).populate('videos');
+    const user = await User.findById(id).populate({
+      path: 'videos',
+      populate: {
+        path: 'creator',
+      },
+    });
+    console.log(req.user);
     res.render('userDetail', { pageTitle: 'Me', user });
   } catch (error) {
     console.log(error);
@@ -131,7 +138,12 @@ export const userDetail = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const user = await User.findById(id).populate('videos');
+    const user = await User.findById(id).populate({
+      path: 'videos',
+      populate: {
+        path: 'creator',
+      },
+    });
     res.render('userDetail', { pageTitle: 'userDetail', user });
   } catch (error) {
     console.log(error);
