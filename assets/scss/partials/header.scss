@@ -1,6 +1,9 @@
 .header {
   background-color: $red;
   margin-bottom: 50px;
+  a {
+    color: white;
+  }
   .header__wrapper {
     display: flex;
     justify-content: space-between;

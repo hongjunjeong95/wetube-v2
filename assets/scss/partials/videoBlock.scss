@@ -1,0 +1,36 @@
+.videoBlock {
+  width: 100%;
+  max-width: 400px;
+  a {
+    color: black;
+  }
+  .videoBlock__thumnail {
+    width: 400px;
+    height: 300px;
+  }
+  .videoBlock__detail {
+    display: flex;
+    max-height: 127px;
+    .profile__avatar {
+      margin-right: 10px;
+    }
+    .videoBlock__info {
+      display: flex;
+      flex-direction: column;
+      .videoBlock__title {
+        overflow: hidden;
+        height: 70px;
+        font-weight: 600;
+        font-size: 17px;
+        margin-bottom: 15px;
+      }
+      .videoBlock__subInfo {
+        font-size: 17px;
+        color: #606060;
+        .videoBlock__creator {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}
