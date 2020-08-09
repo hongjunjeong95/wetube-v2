@@ -1,0 +1,44 @@
+.videopPlayer {
+  margin-bottom: 50px;
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  video {
+    width: 100%;
+    max-width: 100%;
+  }
+  &:hover {
+    .videoPlyaer__controls {
+      opacity: 1;
+    }
+  }
+  .videoPlyaer__controls {
+    opacity: 0;
+    transition: opacity 0.4s linear;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 4px;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    #jsPlayBtn {
+      margin-right: 10px;
+    }
+    #jsVolumeBtn {
+      margin-right: 10px;
+      .controls__volume {
+        position: absolute;
+        bottom: 70px;
+        left: 0px;
+        width: 80px;
+        transform: rotate(-90deg);
+      }
+    }
+    i {
+      cursor: pointer;
+    }
+  }
+}

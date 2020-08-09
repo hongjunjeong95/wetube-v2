@@ -3,25 +3,26 @@ include mixins/videoBlock
 include mixins/videoPlayer
 
 block content
-  +videoPlayer({
-    videoUrl:video.videoUrl,
-  })
-  if loggedUser && video.creator.id === loggedUser.id
-    .videoEdit
-      a(href=routes.editVideo(video.id))
-        button Edit video
-  .video__info.info
-    h4.video__title #{video.title}
-    if video.views === 1
-      span.video__views 1 view
-    else
-      span.video__views #{video.views} views
-    span.video__createdAt #{video.createdAt}
-    .video__creator
-      a(href=routes.userDetail(video.creator.id))
-        if video.creator.avatarUrl.startsWith('http')
-          img(src=video.creator.avatarUrl).creatorAvatar
-        else
-          img(src=`/${video.creator.avatarUrl}`).creatorAvatar
-        span.creatorName #{video.creator.name}
-    p.video__description #{video.description}
+  .videDetail
+    +videoPlayer({
+      videoUrl:video.videoUrl,
+    })
+    if loggedUser && video.creator.id === loggedUser.id
+      .videoEdit
+        a(href=routes.editVideo(video.id))
+          button Edit video
+    .video__info.info
+      h4.video__title #{video.title}
+      if video.views === 1
+        span.video__views 1 view
+      else
+        span.video__views #{video.views} views
+      span.video__createdAt #{video.createdAt}
+      .video__creator
+        a(href=routes.userDetail(video.creator.id))
+          if video.creator.avatarUrl.startsWith('http')
+            img(src=video.creator.avatarUrl).creatorAvatar
+          else
+            img(src=`/${video.creator.avatarUrl}`).creatorAvatar
+          span.creatorName #{video.creator.name}
+      p.video__description #{video.description}
