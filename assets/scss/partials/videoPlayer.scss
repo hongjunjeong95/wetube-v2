@@ -27,13 +27,13 @@
     }
     #jsVolumeBtn {
       margin-right: 10px;
-      .controls__volume {
-        position: absolute;
-        bottom: 70px;
-        left: 0px;
-        width: 80px;
-        transform: rotate(-90deg);
-      }
+    }
+    #jsVolumeRange {
+      position: absolute;
+      bottom: 70px;
+      left: 0px;
+      width: 80px;
+      transform: rotate(-90deg);
     }
     i {
       cursor: pointer;
