@@ -8,8 +8,11 @@ const volumeRange = document.getElementById('jsVolumeRange');
 const fullScreen = document.getElementById('jsFullScreen');
 const currentTime = document.getElementById('jsCurrentTime');
 const totalTime = document.getElementById('jsTotalTime');
+const progress = document.getElementById('jsProgress');
+const progressBar = document.getElementById('jsProgressBar');
 
 let fullScrnCheck = 0;
+let mousedown = false;
 
 const handlePlayClick = () => {
   if (videoPlayer.paused) {
@@ -97,7 +100,7 @@ const preventSpaceScroll = (event) => {
 
 const formatDate = (duration) => {
   const fullMinutes = Math.floor(duration / 60);
-  const fullHours = Math.floor(duration / 60);
+  const fullHours = Math.floor(fullMinutes / 60);
   let seconds = Math.floor(duration % 60);
   let minutes = fullMinutes % 60;
   let hours = fullHours % 24;
@@ -111,7 +114,25 @@ const formatDate = (duration) => {
   if (seconds < 10) {
     seconds = `0${seconds}`;
   }
+  return `${hours}:${minutes}:${seconds}`;
+};
 
+const formatProgress = (duration) => {
+  const fullMinutes = Math.floor(duration / 60);
+  const fullHours = Math.floor(fullMinutes / 60);
+  let seconds = Math.floor(duration % 60);
+  let minutes = fullMinutes % 60;
+  let hours = fullHours / 24;
+
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  if (seconds < 10) {
+    seconds = `0${seconds}`;
+  }
   return `${hours}:${minutes}:${seconds}`;
 };
 
@@ -122,9 +143,21 @@ const getCurrentTime = () => {
 const setTotalTime = async () => {
   const duration = await getBlobDuration(videoPlayer.src);
   const totalTimeString = formatDate(duration);
-  console.log(totalTimeString);
   totalTime.innerHTML = totalTimeString;
   setInterval(getCurrentTime, 1000);
+};
+
+const handleProgress = () => {
+  const percent = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+  progressBar.style.flexBasis = `${percent}%`;
+};
+
+const scrub = (event) => {
+  console.log('event.offsetX: ', event.offsetX);
+  console.log('progress.offsetWidth: ', progress.offsetWidth);
+  const scrubTime =
+    (event.offsetX / progress.offsetWidth) * videoPlayer.duration;
+  videoPlayer.currentTime = scrubTime;
 };
 
 const init = () => {
@@ -137,8 +170,19 @@ const init = () => {
   videoPlayer.addEventListener('mouseover keydown', handleKeydown);
   document.addEventListener('keydown', handleKeydown);
   window.addEventListener('keydown', preventSpaceScroll);
-  // currentTime.addEventListener('')
   setTotalTime();
+
+  // Video progress
+  videoPlayer.addEventListener('timeupdate', handleProgress);
+  progress.addEventListener('click', scrub);
+  videoContainer.addEventListener('mousemove', (event) => {
+    mousedown && scrub(event);
+  });
+  progress.addEventListener('mousedown', () => (mousedown = true));
+  videoContainer.addEventListener('mousedown', () => (mousedown = true));
+
+  progress.addEventListener('mouseup', () => (mousedown = false));
+  videoContainer.addEventListener('mouseup', () => (mousedown = false));
 };
 
 if (videoContainer) {

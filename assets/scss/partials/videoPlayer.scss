@@ -6,7 +6,8 @@
     max-width: 100%;
   }
   &:hover {
-    .videoPlyaer__controls {
+    .videoPlyaer__controls,
+    .progressBar {
       opacity: 1;
     }
   }
@@ -19,24 +20,45 @@
     bottom: 0px;
     color: white;
     font-size: 16px;
-    padding: 10px;
+    padding: 10px 15px;
     background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
-    #jsPlayBtn {
-      margin-right: 10px;
-    }
     #jsVolumeBtn {
-      margin-right: 10px;
+      margin: 0 15px;
     }
     #jsVolumeRange {
-      position: absolute;
-      bottom: 70px;
-      left: 0px;
+      // position: absolute;
+      bottom: 65px;
+      left: 7px;
       width: 80px;
-      transform: rotate(-90deg);
+      // transform: rotate(-90deg);
+      z-index: 2;
+    }
+    span {
+      .slash {
+        padding: 0 3px;
+      }
     }
     i {
+      width: 20px;
       cursor: pointer;
+    }
+  }
+  .progressBar {
+    opacity: 0;
+    transition: opacity 0.4s linear;
+    .progress {
+      position: relative;
+      bottom: 35px;
+      display: flex;
+      height: 15px;
+      background: rgba(59, 59, 59, 0.5);
+      cursor: pointer;
+    }
+
+    .progress__filled {
+      background: $red;
+      transition: flex-basis 0.25s linear;
     }
   }
 }
