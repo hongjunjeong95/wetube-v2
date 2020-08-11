@@ -27,6 +27,9 @@ const UPLOAD = '/upload';
 const EDIT_VIDEO = '/:id/edit-video';
 const DELETE_VIDEO = '/:id/delete-video';
 
+const API = '/api';
+const REGISTER_VIEW = '/:id/view';
+
 const router = {
   home: HOME,
   search: SEARCH,
@@ -67,6 +70,16 @@ const router = {
     if (id) return `/videos/${id}/delete-video`;
     return DELETE_VIDEO;
   },
+
+  // api
+  api: API,
+  // registerView: REGISTER_VIEW,
+  registerView: (id) => {
+    if (id) return `/api/${id}/view`;
+    return REGISTER_VIEW;
+  },
+  // api: API,
+  // registerView: REGISTER_VIEW,
 };
 
 export default router;

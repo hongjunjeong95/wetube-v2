@@ -1,4 +1,8 @@
+/* eslint-disable no-return-assign */
+/* eslint-disable operator-linebreak */
+/* eslint-disable arrow-parens */
 import getBlobDuration from 'get-blob-duration';
+import axios from 'axios';
 
 const videoContainer = document.getElementById('jsVideoPlayer');
 const videoPlayer = document.querySelector('#jsVideoPlayer video');
@@ -12,7 +16,7 @@ const progress = document.getElementById('jsProgress');
 const progressBar = document.getElementById('jsProgressBar');
 
 let fullScrnCheck = 0;
-let mousedown = false;
+let mouseDown = false;
 
 const handlePlayClick = () => {
   if (videoPlayer.paused) {
@@ -117,25 +121,6 @@ const formatDate = (duration) => {
   return `${hours}:${minutes}:${seconds}`;
 };
 
-const formatProgress = (duration) => {
-  const fullMinutes = Math.floor(duration / 60);
-  const fullHours = Math.floor(fullMinutes / 60);
-  let seconds = Math.floor(duration % 60);
-  let minutes = fullMinutes % 60;
-  let hours = fullHours / 24;
-
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-  if (seconds < 10) {
-    seconds = `0${seconds}`;
-  }
-  return `${hours}:${minutes}:${seconds}`;
-};
-
 const getCurrentTime = () => {
   currentTime.innerHTML = formatDate(videoPlayer.currentTime);
 };
@@ -153,11 +138,17 @@ const handleProgress = () => {
 };
 
 const scrub = (event) => {
-  console.log('event.offsetX: ', event.offsetX);
-  console.log('progress.offsetWidth: ', progress.offsetWidth);
   const scrubTime =
     (event.offsetX / progress.offsetWidth) * videoPlayer.duration;
   videoPlayer.currentTime = scrubTime;
+};
+
+const registerView = () => {
+  const videoId = window.location.href.split('/videos/')[1];
+  axios({
+    url: `/api/${videoId}/view`,
+    method: 'POST',
+  });
 };
 
 const init = () => {
@@ -174,17 +165,24 @@ const init = () => {
 
   // Video progress
   videoPlayer.addEventListener('timeupdate', handleProgress);
-  progress.addEventListener('click', scrub);
-  videoContainer.addEventListener('mousemove', (event) => {
-    mousedown && scrub(event);
-  });
-  progress.addEventListener('mousedown', () => (mousedown = true));
-  videoContainer.addEventListener('mousedown', () => (mousedown = true));
 
-  progress.addEventListener('mouseup', () => (mousedown = false));
-  videoContainer.addEventListener('mouseup', () => (mousedown = false));
+  progress.addEventListener('click', scrub);
+  videoContainer.addEventListener(
+    'mousemove',
+    (event) => mouseDown && scrub(event)
+  );
+
+  progress.addEventListener('mousedown', () => (mouseDown = true));
+  videoContainer.addEventListener('mousedown', () => (mouseDown = true));
+
+  progress.addEventListener('mouseup', () => (mouseDown = false));
+  videoContainer.addEventListener('mouseup', () => (mouseDown = false));
+
+  // register View
 };
 
 if (videoContainer) {
   init();
+
+  registerView();
 }
