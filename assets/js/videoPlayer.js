@@ -151,6 +151,12 @@ const registerView = () => {
   });
 };
 
+const handleEnded = () => {
+  registerView();
+  playBtn.innerHTML = '<i class="fas fa-play"></i>';
+  videoPlayer.currentTime = 0;
+};
+
 const init = () => {
   playBtn.addEventListener('click', handlePlayClick);
   videoPlayer.addEventListener('click', handlePlayClick);
@@ -179,10 +185,9 @@ const init = () => {
   videoContainer.addEventListener('mouseup', () => (mouseDown = false));
 
   // register View
+  videoPlayer.addEventListener('ended', handleEnded);
 };
 
 if (videoContainer) {
   init();
-
-  registerView();
 }
