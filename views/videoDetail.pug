@@ -21,7 +21,7 @@ block content
     .video__creator
       a(href=routes.userDetail(video.creator.id))
         if video.creator.avatarUrl.startsWith('http')
-          img(src=video.creator.avatarUrl).creatorAvatar
+          img(src=video.creator.avatarUrl).avatar--small
         else
           img(src=`/${video.creator.avatarUrl}`).avatar--small
         .creatorName #{video.creator.name}
@@ -32,14 +32,20 @@ block content
     else
       .comments__cnt #{video.comments.length} comments
     .comments__add
-      img(src=`/${avatarUrl}`).avatar--small
+      if avatarUrl.startsWith('http')
+        img(src=avatarUrl).avatar--small
+      else
+        img(src=`/${avatarUrl}`).avatar--small
       form.comments__form#jsCommentForm
         textarea(placeholder="comment")#jsCommentTextarea
         input(type="submit" value="comment")
     ul.comments__list
       each comment in video.comments.reverse()
         li.comment__item
-          img(src=`/${comment.creator.avatarUrl}`).avatar--small
+          if comment.creator.avatarUrl.startsWith('http')
+            img(src=comment.creator.avatarUrl).avatar--small
+          else
+            img(src=`/${comment.creator.avatarUrl}`).avatar--small
           .comment__content
             .content__info
               span.content__userName #{comment.creator.name}

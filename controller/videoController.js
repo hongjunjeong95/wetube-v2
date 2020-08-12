@@ -1,5 +1,6 @@
 import routes from '../routes';
 import Video from '../models/Video';
+import User from '../models/User';
 
 export const getDate = () => {
   const date = new Date();
@@ -48,6 +49,8 @@ export const videoDetail = async (req, res) => {
       req.user !== undefined
         ? req.user.avatarUrl
         : 'uploads/avatars/b30202f398381ab2729d2528d27eb686';
+    const user =
+      req.user === undefined ? undefined : await User.findById(req.user.id);
     const video = await Video.findById(id)
       .populate('creator')
       .populate({
@@ -57,7 +60,12 @@ export const videoDetail = async (req, res) => {
         },
       });
 
-    res.render('videoDetail', { pageTitle: video.title, video, avatarUrl });
+    res.render('videoDetail', {
+      pageTitle: video.title,
+      video,
+      avatarUrl,
+      user,
+    });
   } catch (error) {
     console.log(error);
     res.redirect(routes.home);

@@ -8,7 +8,6 @@ export const postRegisterView = async (req, res) => {
       params: { id },
     } = req;
     const video = await Video.findById(id);
-    console.log(video.views);
     video.views++;
     video.save();
     res.status(200);
@@ -33,7 +32,6 @@ export const postAddComment = async (req, res) => {
       creator: user.id,
       createdAt: getDate(),
     });
-    console.log('hi');
     video.comments.push(newComment.id);
     video.save();
   } catch (error) {

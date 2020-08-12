@@ -1,16 +1,21 @@
 .videopPlayer {
   margin-bottom: 20px;
+  display: flex;
+
   position: relative;
   video {
+    align-self: center;
     width: 100%;
     max-width: 100%;
   }
-  &:hover {
+  &:hover,
+  &:active {
     .videoPlyaer__controls,
     .progressBar {
       opacity: 1;
     }
   }
+
   .videoPlyaer__controls {
     opacity: 0;
     transition: opacity 0.4s linear;
@@ -27,11 +32,9 @@
       margin: 0 15px;
     }
     #jsVolumeRange {
-      // position: absolute;
       bottom: 65px;
       left: 7px;
       width: 80px;
-      // transform: rotate(-90deg);
       z-index: 2;
     }
     span {
@@ -45,6 +48,10 @@
     }
   }
   .progressBar {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    bottom: 0;
     opacity: 0;
     transition: opacity 0.4s linear;
     .progress {

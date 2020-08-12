@@ -19,6 +19,7 @@ const commentForm = document.getElementById('jsCommentForm');
 let fullScrnCheck = 0;
 let progressMouseDown = false;
 let commentFocus = false;
+let progressBarClicked = false;
 
 const handlePlayClick = () => {
   if (videoPlayer.paused) {
@@ -176,28 +177,38 @@ const init = () => {
 
   // Video progress
   videoPlayer.addEventListener('timeupdate', handleProgress);
-
   progress.addEventListener('click', scrub);
-  videoContainer.addEventListener(
+  window.addEventListener(
     'mousemove',
-    (event) => progressMouseDown && scrub(event)
+    (event) => progressBarClicked && progressMouseDown && scrub(event)
   );
 
-  progress.addEventListener('mousedown', () => (progressMouseDown = true));
-  videoContainer.addEventListener(
-    'mousedown',
-    () => (progressMouseDown = true)
-  );
+  // Vidoe progress boolean
+  progress.addEventListener('mousedown', () => {
+    progressMouseDown = true;
+    progressBarClicked = true;
+  });
+  window.addEventListener('mousedown', () => {
+    progressMouseDown = true;
+  });
 
-  progress.addEventListener('mouseup', () => (progressMouseDown = false));
-  videoContainer.addEventListener('mouseup', () => (progressMouseDown = false));
+  progress.addEventListener('mouseup', () => {
+    progressMouseDown = false;
+  });
+  window.addEventListener('mouseup', () => {
+    progressMouseDown = false;
+    progressBarClicked = false;
+  });
   commentForm.addEventListener('keydown', () => {
     commentFocus = true;
   });
+
+  // Comment
   commentForm.addEventListener('keyup', () => {
     commentFocus = false;
   });
 
+  // Video end
   videoPlayer.addEventListener('ended', handleEnded);
 };
 

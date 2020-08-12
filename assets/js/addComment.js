@@ -21,8 +21,13 @@ const handleCommentSubmit = (event) => {
   commentTextarea.value = '';
 };
 
+const handleCommentClick = () => {
+  console.log(document.cookie('connect.sid'));
+};
+
 const init = () => {
   commentForm.addEventListener('submit', handleCommentSubmit);
+  commentForm.addEventListener('click', handleCommentClick);
 };
 
 if (commentContainer) {
