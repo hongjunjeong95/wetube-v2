@@ -21,8 +21,11 @@ export const postJoin = async (req, res, next) => {
       const user = await User({
         name,
         email,
-        avatarUrl: file ? file.path : null,
+        avatarUrl: file
+          ? file.path
+          : 'uploads/avatars/b30202f398381ab2729d2528d27eb686',
       });
+
       await User.register(user, password1);
       console.log('Register');
       next();

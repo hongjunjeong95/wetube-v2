@@ -32,7 +32,7 @@ block content
     else
       .comments__cnt #{video.comments.length} comments
     .comments__add
-      if avatarUrl.startsWith('http')
+      if avatarUrl && avatarUrl.startsWith('http')
         img(src=avatarUrl).avatar--small
       else
         img(src=`/${avatarUrl}`).avatar--small
