@@ -14,9 +14,11 @@ const currentTime = document.getElementById('jsCurrentTime');
 const totalTime = document.getElementById('jsTotalTime');
 const progress = document.getElementById('jsProgress');
 const progressBar = document.getElementById('jsProgressBar');
+const commentForm = document.getElementById('jsCommentForm');
 
 let fullScrnCheck = 0;
-let mouseDown = false;
+let progressMouseDown = false;
+let commentFocus = false;
 
 const handlePlayClick = () => {
   if (videoPlayer.paused) {
@@ -165,7 +167,10 @@ const init = () => {
   fullScreen.addEventListener('click', goFullScreen);
   videoContainer.addEventListener('dblclick', goFullScreen);
   videoPlayer.addEventListener('mouseover keydown', handleKeydown);
-  document.addEventListener('keydown', handleKeydown);
+  document.addEventListener(
+    'keydown',
+    (event) => !commentFocus && handleKeydown(event)
+  );
   window.addEventListener('keydown', preventSpaceScroll);
   setTotalTime();
 
@@ -175,14 +180,23 @@ const init = () => {
   progress.addEventListener('click', scrub);
   videoContainer.addEventListener(
     'mousemove',
-    (event) => mouseDown && scrub(event)
+    (event) => progressMouseDown && scrub(event)
   );
 
-  progress.addEventListener('mousedown', () => (mouseDown = true));
-  videoContainer.addEventListener('mousedown', () => (mouseDown = true));
+  progress.addEventListener('mousedown', () => (progressMouseDown = true));
+  videoContainer.addEventListener(
+    'mousedown',
+    () => (progressMouseDown = true)
+  );
 
-  progress.addEventListener('mouseup', () => (mouseDown = false));
-  videoContainer.addEventListener('mouseup', () => (mouseDown = false));
+  progress.addEventListener('mouseup', () => (progressMouseDown = false));
+  videoContainer.addEventListener('mouseup', () => (progressMouseDown = false));
+  commentForm.addEventListener('keydown', () => {
+    commentFocus = true;
+  });
+  commentForm.addEventListener('keyup', () => {
+    commentFocus = false;
+  });
 
   videoPlayer.addEventListener('ended', handleEnded);
 };
