@@ -1,13 +1,10 @@
 import mongoose from 'mongoose';
 
 const commentSchema = new mongoose.Schema({
+  createdAt: String,
   text: {
     type: String,
     required: 'This is comment',
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
   },
   creator: {
     type: mongoose.Schema.Types.ObjectId,

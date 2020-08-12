@@ -184,7 +184,6 @@ const init = () => {
   progress.addEventListener('mouseup', () => (mouseDown = false));
   videoContainer.addEventListener('mouseup', () => (mouseDown = false));
 
-  // register View
   videoPlayer.addEventListener('ended', handleEnded);
 };
 

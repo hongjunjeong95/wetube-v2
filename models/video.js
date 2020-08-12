@@ -9,13 +9,15 @@ const videoSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Comment',
+    },
+  ],
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-  },
-  comments: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comment',
   },
 });
 

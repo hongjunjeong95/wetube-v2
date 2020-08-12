@@ -1,3 +1,4 @@
+/* eslint-disable arrow-parens */
 // home
 const HOME = '/';
 const SEARCH = '/search';
@@ -29,6 +30,7 @@ const DELETE_VIDEO = '/:id/delete-video';
 
 const API = '/api';
 const REGISTER_VIEW = '/:id/view';
+const ADD_COMMENT = '/:id/comment';
 
 const router = {
   home: HOME,
@@ -78,8 +80,10 @@ const router = {
     if (id) return `/api/${id}/view`;
     return REGISTER_VIEW;
   },
-  // api: API,
-  // registerView: REGISTER_VIEW,
+  addComment: (id) => {
+    if (id) return `/api/${id}/comment`;
+    return ADD_COMMENT;
+  },
 };
 
 export default router;
