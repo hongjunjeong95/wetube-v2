@@ -5,9 +5,9 @@ block content
   .search__header
     h5 Searching for: #{searchingBy}
     if videos.length === 0
-      h4 Can't not found #{searchingBy}
+      h5 Can't not found #{searchingBy}
     else
-      h4 I have searched #{videos.length} videos
+      h5 I have searched #{videos.length} videos
   .search__videos
     each video in videos
       +videoBlock({

@@ -3,7 +3,7 @@ mixin videoBlock(video={})
     a(href=routes.videoDetail(video.id))
       video.videoBlock__thumnail(src=`/${video.videoUrl}` controls=false)
       .videoBlock__detail
-        if video.creator.avatarUrl.startsWith('http')
+        if video.creator.avatarUrl && video.creator.avatarUrl.startsWith('http')
           img(src=video.creator.avatarUrl).profile__avatar.avatar--small
         else
           img(src=`/${video.creator.avatarUrl}`).profile__avatar.avatar--small
