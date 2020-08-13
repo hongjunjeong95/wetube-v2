@@ -33,11 +33,11 @@ export const search = async (req, res) => {
     videos = await Video.find({
       title: { $regex: searchingBy, $options: 'i' },
     }).populate('creator');
+    res.render('search', { pageTitle: 'search', searchingBy, videos });
   } catch (error) {
+    req.flash('error', "Can't access the search page");
     console.log(error);
   }
-
-  res.render('search', { pageTitle: 'search', searchingBy, videos });
 };
 
 export const videoDetail = async (req, res) => {
@@ -67,6 +67,7 @@ export const videoDetail = async (req, res) => {
       user,
     });
   } catch (error) {
+    req.flash('error', "Can't access the video page");
     console.log(error);
     res.redirect(routes.home);
   }
@@ -74,7 +75,13 @@ export const videoDetail = async (req, res) => {
 
 // Upload video
 export const getUpload = (req, res) => {
-  res.render('upload', { pageTitle: 'upload' });
+  try {
+    res.render('upload', { pageTitle: 'upload' });
+  } catch (error) {
+    console.log(error);
+    res.redirect(routes.home);
+    req.flash('error', "Can't access the upload page");
+  }
 };
 
 export const postUpload = async (req, res) => {
@@ -94,7 +101,9 @@ export const postUpload = async (req, res) => {
     req.user.videos.push(newVideo.id);
     req.user.save();
     res.redirect(routes.videoDetail(newVideo.id));
+    req.flash('success', 'Uploading the video success');
   } catch (error) {
+    req.flash('error', "Can't upload the video");
     console.log(error);
     res.redirect(routes.upload);
   }
@@ -109,10 +118,10 @@ export const getEditVideo = async (req, res) => {
     if (String(video.creator) !== req.user.id) {
       throw Error();
     } else {
-      console.log(video);
       res.render('editVideo', { pageTitle: `Edit ${video.title}`, video });
     }
   } catch (error) {
+    req.flash('error', "Can't access the editing video page");
     console.log(error);
     res.redirect(routes.home);
   }
@@ -126,8 +135,10 @@ export const postEditVideo = async (req, res) => {
   try {
     await Video.findByIdAndUpdate(id, { title, description });
     res.redirect(routes.videoDetail(id));
+    req.flash('success', 'Uploading the video success');
   } catch (error) {
     res.render('editVideo', { pageTitle: 'editVideo' });
+    req.flash('error', "Can't edit the video");
   }
 };
 
@@ -142,7 +153,9 @@ export const deleteVideo = async (req, res) => {
     } else {
       await Video.findOneAndRemove({ _id: id });
     }
+    req.flash('success', 'Deleting the video success');
   } catch (error) {
+    req.flash('error', "Can't delete the video");
     console.log(error);
   }
   res.redirect(routes.home);

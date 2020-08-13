@@ -8,6 +8,7 @@ import passport from 'passport';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import flash from 'express-flash';
 
 import { localMiddleware } from './middleware';
 import routes from './routes';
@@ -58,6 +59,8 @@ app.use(passport.session()); // connect session
 // app.use(check);
 
 app.use(localMiddleware);
+
+app.use(flash());
 
 app.use(routes.api, apiRouter);
 app.use(routes.home, globalRouter);
