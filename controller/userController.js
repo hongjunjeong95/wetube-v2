@@ -130,9 +130,9 @@ export const googleStrategy = async (_, __, profile, cb) => {
 
 // logout
 export const logout = (req, res) => {
+  req.flash('info', 'Log out!!');
   req.logout();
   res.redirect(routes.home);
-  req.flash('info', 'Log out!!');
 };
 
 // getMe
