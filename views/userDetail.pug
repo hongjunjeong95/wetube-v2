@@ -4,10 +4,7 @@ include mixins/videoBlock
 block content
   .profile
     .profile__column
-      if user.avatarUrl && user.avatarUrl.startsWith('http')
-        img(src=user.avatarUrl).profile__avatar
-      else
-        img(src=`/${user.avatarUrl}`).profile__avatar
+      img(src=user.avatarUrl).profile__avatar
     .profile__column
       .profile__name #{user.name}
       .profile__email #{user.email}

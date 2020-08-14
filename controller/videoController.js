@@ -48,7 +48,7 @@ export const videoDetail = async (req, res) => {
     const avatarUrl =
       req.user !== undefined
         ? req.user.avatarUrl
-        : 'uploads/avatars/b30202f398381ab2729d2528d27eb686';
+        : 'https://wetube-v2.s3.amazonaws.com/avatar/06ec794a14dee6374e4e176f470ce90b';
     const user =
       req.user === undefined ? undefined : await User.findById(req.user.id);
     const video = await Video.findById(id)
@@ -85,16 +85,18 @@ export const getUpload = (req, res) => {
 };
 
 export const postUpload = async (req, res) => {
+  console.log('hi');
   const {
     body: { title, description },
-    file: { path },
+    file: { location },
     user: { id },
   } = req;
+  console.log('location: ', location);
   try {
     const newVideo = await Video.create({
       title,
       description,
-      videoUrl: path,
+      videoUrl: location,
       creator: id,
       createdAt: getDate(),
     });

@@ -28,8 +28,8 @@ export const postJoin = async (req, res, next) => {
         name,
         email,
         avatarUrl: file
-          ? file.path
-          : 'uploads/avatars/b30202f398381ab2729d2528d27eb686',
+          ? file.location
+          : 'https://wetube-v2.s3.amazonaws.com/avatar/06ec794a14dee6374e4e176f470ce90b',
       });
 
       await User.register(user, password1);
@@ -199,7 +199,7 @@ export const postEditProfile = async (req, res) => {
     await User.findByIdAndUpdate(id, {
       name,
       email,
-      avatarUrl: file ? file.path : req.user.avatarUrl,
+      avatarUrl: file ? file.location : req.user.avatarUrl,
     });
     res.redirect(routes.me);
     req.flash('success', 'Edit success');

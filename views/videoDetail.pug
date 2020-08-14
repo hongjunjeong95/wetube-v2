@@ -20,10 +20,7 @@ block content
       span.video__createdAt #{video.createdAt}
     .video__creator
       a(href=routes.userDetail(video.creator.id))
-        if video.creator.avatarUrl.startsWith('http')
-          img(src=video.creator.avatarUrl).avatar--small
-        else
-          img(src=`/${video.creator.avatarUrl}`).avatar--small
+        img(src=video.creator.avatarUrl).avatar--small
         .creatorName #{video.creator.name}
     p.video__description #{video.description}
   .video__comments#jsCommentContainer
@@ -32,10 +29,7 @@ block content
     else
       .comments__cnt #{video.comments.length} comments
     .comments__add
-      if avatarUrl && avatarUrl.startsWith('http')
-        img(src=avatarUrl).avatar--small#jsCommentAvatar
-      else
-        img(src=`/${avatarUrl}`).avatar--small#jsCommentAvatar
+      img(src=avatarUrl).avatar--small#jsCommentAvatar
       form.comments__form#jsCommentForm
         textarea(placeholder="comment")#jsCommentTextarea
         input(type="submit" value="comment")
@@ -43,10 +37,7 @@ block content
       each comment in video.comments.reverse()
         li.comment__item
           .comment__column
-            if comment.creator.avatarUrl.startsWith('http')
-              img(src=comment.creator.avatarUrl).avatar--small
-            else
-              img(src=`/${comment.creator.avatarUrl}`).avatar--small
+            img(src=comment.creator.avatarUrl).avatar--small
             .comment__content
               .content__info
                 span.content__userName #{comment.creator.name}
