@@ -1,7 +1,6 @@
 import Video from '../models/Video';
 import Comment from '../models/Comment';
 import { getDate } from './videoController';
-import routes from '../routes';
 
 export const postRegisterView = async (req, res) => {
   try {

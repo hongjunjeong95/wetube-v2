@@ -33,9 +33,9 @@ block content
       .comments__cnt #{video.comments.length} comments
     .comments__add
       if avatarUrl && avatarUrl.startsWith('http')
-        img(src=avatarUrl).avatar--small
+        img(src=avatarUrl).avatar--small#jsCommentAvatar
       else
-        img(src=`/${avatarUrl}`).avatar--small
+        img(src=`/${avatarUrl}`).avatar--small#jsCommentAvatar
       form.comments__form#jsCommentForm
         textarea(placeholder="comment")#jsCommentTextarea
         input(type="submit" value="comment")
