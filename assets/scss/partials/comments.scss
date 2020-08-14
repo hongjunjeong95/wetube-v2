@@ -11,9 +11,6 @@
       margin-left: 15px;
       width: 100%;
       max-height: 600px;
-      // position: relative;
-      // display: flex;
-      // flex-direction: column;
       textarea {
         resize: none;
         border: none;
@@ -28,9 +25,6 @@
         }
       }
       input {
-        // position: absolute;
-        // right: 0;
-        // bottom: -40px;
         padding: 10px;
         font-size: 16px;
         background-color: #3498db;
@@ -45,19 +39,34 @@
   .comments__list {
     .comment__item {
       display: flex;
+      justify-content: space-between;
       margin-bottom: 30px;
-      .comment__content {
-        margin-left: 10px;
-        .content__info {
-          margin-bottom: 10px;
-          .content__userName {
-            font-weight: 600;
-            margin-right: 10px;
+      .comment__column:first-child {
+        display: flex;
+        .comment__content {
+          margin-left: 10px;
+          .content__info {
+            margin-bottom: 10px;
+            .content__userName {
+              font-weight: 600;
+              margin-right: 10px;
+            }
+            .content__createdAt {
+              font-size: 13px;
+              font-weight: 400;
+            }
           }
-          .content__createdAt {
-            font-size: 13px;
-            font-weight: 400;
-          }
+        }
+      }
+      .comment__delBtn {
+        input {
+          padding: 10px;
+          font-size: 16px;
+          background-color: #3498db;
+          color: white;
+          cursor: pointer;
+          border: none;
+          border-radius: 5px;
         }
       }
     }

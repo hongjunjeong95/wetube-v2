@@ -1,6 +1,7 @@
 import Video from '../models/Video';
 import Comment from '../models/Comment';
 import { getDate } from './videoController';
+import routes from '../routes';
 
 export const postRegisterView = async (req, res) => {
   try {
@@ -26,7 +27,6 @@ export const postAddComment = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    console.log(comment);
     const newComment = await Comment.create({
       text: comment,
       creator: user.id,
@@ -36,6 +36,29 @@ export const postAddComment = async (req, res) => {
     video.save();
   } catch (error) {
     res.status(400);
+  } finally {
+    res.end();
+  }
+};
+
+export const postDeleteComment = async (req, res) => {
+  const {
+    body: { id },
+  } = req;
+
+  try {
+    const comment = await Comment.findById(id);
+    console.log('Delete comment', comment);
+    if (String(comment.creator) !== req.user.id) {
+      throw Error();
+    } else {
+      await Comment.findByIdAndRemove(id);
+    }
+    req.flash('success', 'Deleting the comment success');
+  } catch (error) {
+    console.log(error);
+    res.status(400);
+    req.flash('error', "Can't delete the comment");
   } finally {
     res.end();
   }

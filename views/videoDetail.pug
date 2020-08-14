@@ -42,13 +42,18 @@ block content
     ul.comments__list
       each comment in video.comments.reverse()
         li.comment__item
-          if comment.creator.avatarUrl.startsWith('http')
-            img(src=comment.creator.avatarUrl).avatar--small
-          else
-            img(src=`/${comment.creator.avatarUrl}`).avatar--small
-          .comment__content
-            .content__info
-              span.content__userName #{comment.creator.name}
-              span.content__createdAt #{comment.createdAt}
-            .comment
-              span #{comment.text}
+          .comment__column
+            if comment.creator.avatarUrl.startsWith('http')
+              img(src=comment.creator.avatarUrl).avatar--small
+            else
+              img(src=`/${comment.creator.avatarUrl}`).avatar--small
+            .comment__content
+              .content__info
+                span.content__userName #{comment.creator.name}
+                span.content__createdAt #{comment.createdAt}
+              .comment
+                span #{comment.text}
+          if loggedUser && loggedUser.id === comment.creator.id
+            .comment__column
+              form.comment__delBtn.jsDeleteComment
+                input(type="submit" value="Delete" name=comment.id)
