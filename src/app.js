@@ -1,4 +1,6 @@
+import '@babel/polyfill'; // To fix ReferenceError: regeneratorRuntime is not defined
 import express from 'express';
+import path from 'path';
 
 import morgan from 'morgan';
 import helmet from 'helmet';
@@ -27,8 +29,9 @@ app.use(helmet());
 
 app.set('view engine', 'pug');
 
-app.use('/uploads', express.static('uploads'));
-app.use('/static', express.static('static'));
+app.set('views', path.join(__dirname, 'views'));
+
+app.use('/static', express.static(path.join(__dirname, 'static')));
 
 // app을 이용해서 middleware를 추가해준다.
 // cookieParser는 사용자 인증에 필요한 cookie를 전달 받는다.
