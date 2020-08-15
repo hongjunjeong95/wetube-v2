@@ -12,12 +12,11 @@ import flash from 'express-flash';
 
 import { localMiddleware } from './middleware';
 import routes from './routes';
+import apiRouter from './routers/apiRouter';
 import userRouter from './routers/userRouter';
 import videoRouter from './routers/videoRouter';
 import globalRouter from './routers/globalRouter';
-import apiRouter from './routers/apiRouter';
 
-import './db';
 import './passport';
 
 const app = express();
