@@ -11,7 +11,8 @@
     "copyAll": "cp -R src/static build && cp -R src/views build",
     "build": "npm run build:server && npm run build:assets && npm run copyAll",
     "prebuild": "rm -rf build",
-    "start": "node build/init.js"
+    "start": "PRODUCTION=true node build/init.js",
+    "prestart": "npm run build"
   },
   "author": "HongJun",
   "license": "ISC",
@@ -37,6 +38,7 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "get-blob-duration": "^1.1.2",
     "helmet": "^3.23.3",
+    "heroku": "^7.42.6",
     "mongoose": "^5.9.27",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",

@@ -12,7 +12,9 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: `http://localhost:${process.env.PORT}${routes.githubCallback}`,
+      callbackURL: process.env.PRODUCTION
+        ? `https://wetube-v2.herokuapp.com${routes.githubCallback}`
+        : `http://localhost:${process.env.PORT}${routes.githubCallback}`,
     },
     githubStrategy
   )
@@ -23,7 +25,9 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: `http://localhost:${process.env.PORT}${routes.googleCallback}`,
+      callbackURL: process.env.PRODUCTION
+        ? `https://wetube-v2.herokuapp.com${routes.googleCallback}`
+        : `http://localhost:${process.env.PORT}${routes.googleCallback}`,
     },
     googleStrategy
   )
