@@ -15,10 +15,10 @@ export const getJoin = (req, res) => {
 
 export const postJoin = async (req, res, next) => {
   const {
-    body: { name, email, password1, password2 },
+    body: { name, email, password, password2 },
     file,
   } = req;
-  if (password1 !== password2) {
+  if (password !== password2) {
     req.flash('error', "Passwords don't match");
     res.status(400);
     res.render('join', { pageTitle: 'Join' });
@@ -32,7 +32,7 @@ export const postJoin = async (req, res, next) => {
           : 'https://wetube-v2.s3.amazonaws.com/avatar/06ec794a14dee6374e4e176f470ce90b',
       });
 
-      await User.register(user, password1);
+      await User.register(user, password);
       req.flash('success', 'Join success');
       next();
     } catch (error) {
