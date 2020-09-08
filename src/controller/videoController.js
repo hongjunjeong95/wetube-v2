@@ -1,6 +1,7 @@
 import routes from '../routes';
 import Video from '../models/Video';
 import User from '../models/User';
+import { s3 } from '../middleware'; // export 해준 middleware의 s3를 import
 
 export const getDate = () => {
   const date = new Date();
@@ -67,8 +68,8 @@ export const videoDetail = async (req, res) => {
       user,
     });
   } catch (error) {
-    req.flash('error', "Can't access the video page");
     console.log(error);
+    req.flash('error', "Can't access the video page");
     res.redirect(routes.home);
   }
 };
@@ -79,19 +80,17 @@ export const getUpload = (req, res) => {
     res.render('upload', { pageTitle: 'upload' });
   } catch (error) {
     console.log(error);
-    res.redirect(routes.home);
     req.flash('error', "Can't access the upload page");
+    res.redirect(routes.home);
   }
 };
 
 export const postUpload = async (req, res) => {
-  console.log('hi');
   const {
     body: { title, description },
     file: { location },
     user: { id },
   } = req;
-  console.log('location: ', location);
   try {
     const newVideo = await Video.create({
       title,
@@ -102,11 +101,11 @@ export const postUpload = async (req, res) => {
     });
     req.user.videos.push(newVideo.id);
     req.user.save();
-    res.redirect(routes.videoDetail(newVideo.id));
     req.flash('success', 'Uploading the video success');
+    res.redirect(routes.videoDetail(newVideo.id));
   } catch (error) {
-    req.flash('error', "Can't upload the video");
     console.log(error);
+    req.flash('error', "Can't upload the video");
     res.redirect(routes.upload);
   }
 };
@@ -123,8 +122,8 @@ export const getEditVideo = async (req, res) => {
       res.render('editVideo', { pageTitle: `Edit ${video.title}`, video });
     }
   } catch (error) {
-    req.flash('error', "Can't access the editing video page");
     console.log(error);
+    req.flash('error', "Can't access the editing video page");
     res.redirect(routes.home);
   }
 };
@@ -136,11 +135,11 @@ export const postEditVideo = async (req, res) => {
   } = req;
   try {
     await Video.findByIdAndUpdate(id, { title, description });
-    res.redirect(routes.videoDetail(id));
     req.flash('success', 'Uploading the video success');
+    res.redirect(routes.videoDetail(id));
   } catch (error) {
-    res.render('editVideo', { pageTitle: 'editVideo' });
     req.flash('error', "Can't edit the video");
+    res.render('editVideo', { pageTitle: 'editVideo' });
   }
 };
 
@@ -153,12 +152,23 @@ export const deleteVideo = async (req, res) => {
     if (String(video.creator) !== req.user.id) {
       throw Error();
     } else {
+      const regex = /(http[s]?:\/\/)?([^\/\s]+\/)(.*)/;
+      const filePath = await video.videoUrl.match(regex)[3];
+      const delFile = {
+        Bucket: 'wetube-v2',
+        Key: filePath,
+      };
+
+      await s3.deleteObject(delFile, function (err, data) {
+        if (err) console.log(err);
+        else console.log('The file has been removed');
+      });
       await Video.findOneAndRemove({ _id: id });
+      req.flash('success', 'Deleting the video success');
     }
-    req.flash('success', 'Deleting the video success');
   } catch (error) {
-    req.flash('error', "Can't delete the video");
     console.log(error);
+    req.flash('error', "Can't delete the video");
   }
   res.redirect(routes.home);
 };

@@ -53,11 +53,9 @@ export const postDeleteComment = async (req, res) => {
     } else {
       await Comment.findByIdAndRemove(id);
     }
-    req.flash('success', 'Deleting the comment success');
   } catch (error) {
     console.log(error);
     res.status(400);
-    req.flash('error', "Can't delete the comment");
   } finally {
     res.end();
   }

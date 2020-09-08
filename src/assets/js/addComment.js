@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { getDate } from '../../controller/videoController';
 
 const commentContainer = document.getElementById('jsCommentContainer');
 const commentForm = document.getElementById('jsCommentForm');

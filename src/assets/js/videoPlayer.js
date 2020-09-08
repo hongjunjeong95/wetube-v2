@@ -199,6 +199,7 @@ const init = () => {
     progressMouseDown = false;
     progressBarClicked = false;
   });
+
   commentForm.addEventListener('keydown', () => {
     commentFocus = true;
   });

@@ -201,8 +201,8 @@ export const postEditProfile = async (req, res) => {
       email,
       avatarUrl: file ? file.location : req.user.avatarUrl,
     });
-    res.redirect(routes.me);
     req.flash('success', 'Edit success');
+    res.redirect(routes.me);
   } catch (error) {
     req.flash('error', 'Edit fail');
     console.log(error);
@@ -231,8 +231,8 @@ export const postChangePassword = async (req, res) => {
       return;
     }
     await req.user.changePassword(oldPassword, newPassword);
-    res.redirect(routes.me);
     req.flash('success', 'Change password success');
+    res.redirect(routes.me);
   } catch (error) {
     req.flash('error', 'Change password fail');
     console.log(error);
